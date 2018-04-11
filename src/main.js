@@ -9,6 +9,7 @@ import Home from "./home";
 import Student from "./student";
 import Campus from "./campus";
 import StudentForm from "./studentForm";
+import CampusForm from "./campusForm";
 
 class Main extends Component {
   componentDidMount() {
@@ -19,7 +20,9 @@ class Main extends Component {
     return (
       <Router>
         <div>
-          <Nav />
+          <div className="container-fluid">
+            <Nav />
+          </div>
           <br />
           <Route path="/" exact render={() => <Home />} />
           <Switch>
@@ -44,6 +47,13 @@ class Main extends Component {
               exact
               render={({ history, match }) => (
                 <Campus history={history} match={match} />
+              )}
+            />
+            <Route
+              path="/api/campuses/:id/campusForm"
+              exact
+              render={({ history, match }) => (
+                <CampusForm history={history} match={match} />
               )}
             />
           </Switch>

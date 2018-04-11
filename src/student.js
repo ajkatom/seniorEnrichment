@@ -45,59 +45,70 @@ class Student extends Component {
     return (
       <div>
         <div className="container">
-          {student ? (
-            <div>
-              <img className="d-inline-flex" src={student.profilePic} />
-              <div className="container">
-                <h2 className="d-inline-flex">{student.name}</h2>
+          <div className="card-deck">
+            {student ? (
+              <div className="card">
+                <img
+                  className="card-img-top"
+                  alt="Card image cap"
+                  src={student.profilePic}
+                  height="200px"
+                />
+                <div className="card-body">
+                  <h2>{student.name}</h2>
+                  <h4>GPA : {student.gpa}</h4>
+                  <br />
+                  <Link
+                    to={`/api/students/${student.id}/studentForm`}
+                    type="button"
+                    className="btn btn-primary"
+                  >
+                    EDIT
+                  </Link>
+                  <button
+                    className="btn btn-primary"
+                    onClick={() => {
+                      deleteStudent(this.state.student.id);
+                      history.push("/api/students");
+                    }}
+                  >
+                    delete
+                  </button>
+                </div>
               </div>
-
-              <div className="d-inline-flex">{student.gpa}</div>
-            </div>
-          ) : null}
+            ) : null}
+          </div>
         </div>
-        <h2>Select New Campus</h2>
-        <select
-          className="form-control"
-          name="campusId"
-          value={campus.id}
-          onChange={this.onChange}
-        >
-          <option value="-1">None</option>
-          {campuses.map(campus => (
-            <option key={campus.id} value={campus.id}>
-              {campus.name}
-            </option>
-          ))}
-        </select>
-        <button
-          onClick={() =>
-            updateStudent(this.state.student, this.state.student.id)
-          }
-        >
-          change
-        </button>
-        <br />
-        <Link
-          to={`/api/students/${student.id}/studentForm`}
-          type="button"
-          className="btn btn-primary btn-lg btn-primary"
-        >
-          EDIT
-        </Link>
-        <button
-          className="d-inline-flex"
-          onClick={() => {
-            deleteStudent(this.state.student.id);
-            history.push("/api/students");
-          }}
-        >
-          delete
-        </button>
-        <div>
-          {campus ? (
-            <div>
-              <img className="d-inline-flex" src={campus.picture} />
+        <div />
+        <div className="cntr">
+          <h2>Select New Campus</h2>
+          <select
+            className="form-control"
+            name="campusId"
+            value={campus.id}
+            onChange={this.onChange}
+          >
+            <option value="-1">None</option>
+            {campuses.map(campus => (
+              <option key={campus.id} value={campus.id}>
+                {campus.name}
+              </option>
+            ))}
+          </select>
+        </div>
+        <div className="cntr">
+          <button
+            onClick={() =>
+              updateStudent(this.state.student, this.state.student.id)
+            }
+          >
+            change
+          </button>
+        </div>
+        <div className="card-deck">
+          {campus.name ? (
+            <div className="card">
+              <img className="card-img-top" src={campus.picture} />
               <NavLink
                 className="d-inline-flex"
                 to={`/api/campuses/${campus.id}`}
@@ -106,18 +117,28 @@ class Student extends Component {
               </NavLink>
               <br />
               {counter.length} students
+              <Link
+                className="card-body"
+                to={`/api/campuses/${campus.id}/campusForm`}
+                type="button"
+                className="btn btn-primary btn-lg btn-primary"
+              >
+                EDIT CAMPUS
+              </Link>
             </div>
           ) : (
-            <h3>This Student is not registered with a campus</h3>
+            <div className="card">
+              <h3>This Student is not registered with a campus</h3>
+              <Link
+                className="card-body"
+                to={`/api/campuses/${campus.id}/campusForm`}
+                type="button"
+                className="btn btn-primary btn-lg btn-primary"
+              >
+                CREATE CAMPUS
+              </Link>
+            </div>
           )}
-          <Link
-            className="d-inline-flex"
-            to={`/api/campuses/${campus.id}/campusForm`}
-            type="button"
-            className="btn btn-primary btn-lg btn-primary"
-          >
-            EDIT campus
-          </Link>
         </div>
       </div>
     );

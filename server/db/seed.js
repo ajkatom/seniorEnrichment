@@ -10,8 +10,8 @@ const campusArray = [];
 for (let j = 0; j < 5; j++) {
   campusArray.push({
     name: `${chance.state({ full: true })} state`,
-    picture: chance.avatar(),
-
+    picture:
+      "https://www.sunshinedaydream.biz/assets/images/buttons/pink-floyd-the-wall-hammers-button.jpg",
     address: chance.address(),
     description: chance.paragraph({ sentences: 1 })
   });
@@ -19,7 +19,8 @@ for (let j = 0; j < 5; j++) {
 
 for (let i = 0; i < 11; i++) {
   studentArray.push({
-    profilePic: chance.avatar({ fileExtension: "jpg" }),
+    profilePic:
+      "https://cdnb.artstation.com/p/assets/images/images/000/287/547/large/89Ilustra1.jpg?1415281882",
     firstName: chance.first(),
     lastName: chance.last(),
     email: chance.email(),

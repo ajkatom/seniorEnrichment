@@ -1,7 +1,14 @@
 import React from "react";
+import Chance from "chance";
+const canch = new Chance();
 
 const Home = () => {
-  return <hr />;
+  return (
+    <div className="container" id="home">
+      <h1>WELLCOME TO THE COLLEGE REGISTRY</h1>
+      <p>{chance.paragraph()}</p>
+    </div>
+  );
 };
 
 export default Home;

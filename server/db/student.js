@@ -5,13 +5,11 @@ const Student = conn.define(
   "student",
   {
     profilePic: {
-      type: Sequelize.TEXT,
-      validate: {
-        isUrl: true
-      }
+      type: Sequelize.TEXT
     },
     firstName: {
       type: Sequelize.STRING,
+      allowNull: false,
       validate: {
         notEmpty: {
           args: true,
@@ -21,6 +19,7 @@ const Student = conn.define(
     },
     lastName: {
       type: Sequelize.STRING,
+      allowNull: false,
       validate: {
         notEmpty: {
           args: true,

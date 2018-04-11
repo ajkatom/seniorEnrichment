@@ -1,0 +1,97 @@
+/******************************************
+*  Author : Author   
+*  Created On : Mon Apr 09 2018
+*  File : style.css
+*******************************************/
+
+body,
+html {
+    margin: 0;
+    background-image: url("https://www.crwflags.com/fotw/images/m/musi-pf1.gif");
+    background-size: cover;
+    height: 100%;
+    width: 100%;
+}
+
+h1 {
+    color: grey;
+}
+
+#home {
+    background-image: url("https://img.discogs.com/YFkHH3AIcJf5c8XZMxnKbVb6IXQ=/fit-in/600x600/filters:strip_icc():format(jpeg):mode_rgb():quality(90)/discogs-images/R-367511-1215965809.jpeg.jpg");
+    background-size: cover;
+    height: 100%;
+    width: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: absolute;
+    top: 10%;
+    left: 0;
+    right: 0;
+}
+
+
+/* .container.noStudents {
+    background-image: url("https://fairfieldtheatre.org/sites/default/files/styles/events/public/event_images/8yTKYK3CUZ3mn0jWPoIFAkTuhga.jpg");
+    background-size: cover;
+    height: 100%;
+    width: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: absolute;
+    top: 10%;
+    left: 0;
+    right: 0;
+}
+
+*/
+
+#students {
+    background-image: url("http://greenwichfreepress.com/wp-content/uploads/2017/04/Screen-Shot-2017-04-18-at-1.04.47-PM.png");
+    background-size: cover;
+    min-height: 100%;
+    height: 100%;
+    width: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+    top: 10%;
+    left: 0;
+    right: 0;
+}
+
+.form-control {
+    max-width: 20%;
+}
+
+
+/* .noStudents {
+    background-image: url("https://fairfieldtheatre.org/sites/default/files/styles/events/public/event_images/8yTKYK3CUZ3mn0jWPoIFAkTuhga.jpg");
+    background-size: 100%;
+    box-sizing: unset;
+}
+
+*/
+
+.cntr {
+    margin: 0 auto;
+    flex-wrap: wrap;
+    flex: initial;
+}
+
+.card-deck {
+    margin: 0 auto;
+}
+
+
+/* .list-inline-item {
+    padding: 30px;
+}
+
+.list-inline {
+    display: flex;
+    height: 200pix;
+} */

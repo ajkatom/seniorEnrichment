@@ -1,52 +1,124 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { NavLink, Link } from "react-router-dom";
-import { deleteCampus } from "./store";
+import { deleteCampus, updateStudent } from "./store";
+import omit from "object.omit";
 
-const Campus = ({ campuses, students, campus, matchingStudents }) => {
-  return (
-    <div>
-      <div className="container">
-        {campus ? (
-          <div>
-            <img className="d-inline-flex" src={campus.picture} />
-            <div className="container">
-              <h2 className="d-inline-flex">{campus.name}</h2>
-            </div>
-            <div className="d-inline-flex">{campus.description}</div>
-          </div>
-        ) : null}
-      </div>
-      <Link
-        to={"/api/campusForm"}
-        type="button"
-        className="btn btn-primary btn-lg btn-primary"
-      >
-        EDIT
-      </Link>
-      <button className="d-inline-flex" onClick={() => deleteCampus()}>
-        delete
-      </button>
-      {console.log(matchingStudents)}
+class Campus extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      student: {}
+    };
+    this.onChange = this.onChange.bind(this);
+  }
+  onChange(ev) {
+    const campusId =
+      location.hash.slice(location.hash.lastIndexOf("/") + 1) * 1;
+    const studentId = ev.target.value * 1;
+    const { students } = this.props;
+    let student = students.find(student => student.id === studentId);
+    student = omit(student, "name");
+    student.campusId = campusId;
+    this.setState({ student });
+  }
 
-      {matchingStudents.length
-        ? matchingStudents.map(student => {
-            return (
-              <div key={student.id}>
-                <img className="d-inline-flex" src={campus.picture} />
-                <NavLink
-                  className="d-inline-flex"
-                  to={`/api/students/${student.id}`}
-                >
-                  <h3 key={student.id}>{student.name}</h3>
-                </NavLink>
+  render() {
+    const {
+      history,
+      deleteCampus,
+      campuses,
+      students,
+      campus,
+      matchingStudents,
+      updateStudent
+    } = this.props;
+
+    if (!campuses || !campus) return null;
+    return (
+      <div>
+        <div className="container">
+          {campus ? (
+            <div>
+              <img className="d-inline-flex" src={campus.picture} />
+              <div className="container">
+                <h2 className="d-inline-flex">{campus.name}</h2>
               </div>
-            );
-          })
-        : null}
-    </div>
-  );
-};
+              <div className="d-inline-flex">{campus.description}</div>
+            </div>
+          ) : null}
+        </div>
+        <Link
+          className="btn btn-primary"
+          to={`/api/campuses/${campus.id}/campusForm`}
+          type="button"
+          className="btn btn-primary btn-lg btn-primary"
+        >
+          EDIT
+        </Link>
+        <button
+          className="btn btn-primary"
+          onClick={() => {
+            deleteCampus(campus.id);
+            history.push("/api/campuses");
+          }}
+        >
+          delete
+        </button>
+        <div>
+          <h2>add existing students</h2>
+          <select
+            className="form-control"
+            name="campusId"
+            value={this.state.student.id}
+            onChange={this.onChange}
+          >
+            <option value="-1">None</option>
+            {students.map(student => (
+              <option key={student.id} value={student.id}>
+                {student.name}
+              </option>
+            ))}
+          </select>
+          <button
+            className="btn btn-primary"
+            onClick={() => {
+              console.log(typeof pathname);
+              updateStudent(this.state.student, this.state.student.id);
+            }}
+          >
+            ADD STUDENT
+          </button>
+        </div>
+        <h2>Enrolled students</h2>
+        {matchingStudents.length
+          ? matchingStudents.map(student => {
+              return (
+                <div className="container" key={student.id}>
+                  <div className="card-deck">
+                    <div className="card">
+                      <img
+                        className="card-img-top"
+                        src={student.profilePic}
+                        height="100pix"
+                        width="100pix"
+                      />
+                      <NavLink
+                        className="card-body"
+                        to={`/api/students/${student.id}`}
+                      >
+                        <h3 key={student.id}>{student.name}</h3>
+                      </NavLink>
+                    </div>
+                  </div>
+                </div>
+              );
+            })
+          : null}
+      </div>
+    );
+  }
+}
 const mapStateToProps = ({ students, campuses }) => {
   let matchingStudents = [];
   let campus = {};
@@ -65,5 +137,15 @@ const mapStateToProps = ({ students, campuses }) => {
     campus
   };
 };
+const mapDispatchToProps = dispatch => {
+  return {
+    deleteCampus: id => {
+      dispatch(deleteCampus(id));
+    },
+    updateStudent: (student, id) => {
+      dispatch(updateStudent(student, id));
+    }
+  };
+};
 
-export default connect(mapStateToProps)(Campus);
+export default connect(mapStateToProps, mapDispatchToProps)(Campus);

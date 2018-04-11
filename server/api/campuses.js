@@ -23,5 +23,14 @@ router.delete("/:id", (req, res, next) => {
     .then(() => res.sendStatus(204))
     .catch(next);
 });
+router.put("/:id", (req, res, next) => {
+  Campus.findById(req.params.id)
+    .then(campus => {
+      Object.assign(campus, req.body);
+      return campus.save();
+    })
+    .then(campus => res.send(campus))
+    .catch(next);
+});
 
 module.exports = router;

@@ -1,6 +1,7 @@
 import { createStore, combineReducers, applyMiddleware } from "redux";
 import thunk from "redux-thunk";
 import axios from "axios";
+import campuses from "./campuses";
 
 const LIST_CAMPUSES = "LIST_CAMPUSES";
 const DELETE_CAMPUS = "DELETE_CAMPUS";
@@ -10,22 +11,13 @@ const UPDATE_CAMPUS = "UPDATE_CAMPUS";
 const LIST_STUDENTS = "LIST_STUDENT";
 const DELETE_STUDENT = "DELETE_STUDENT";
 const CREATE_STUDENT = "CREATE_STUDENT";
-const UPDATE_STUDENT = "UPDATE_CAMPUS";
+const UPDATE_STUDENT = "UPDATE_STUDENT";
+
+const ERROR = "ERROR";
+const CLEAR_ERROR = "CLEAR_ERROR";
 
 //--------thunks------------------------
-const listCampuses = () => {
-  return dispatch => {
-    return axios
-      .get("/api/campuses")
-      .then(campuses => campuses.data)
-      .then(campuses => {
-        dispatch({
-          type: LIST_CAMPUSES,
-          campuses
-        });
-      });
-  };
-};
+// ------students-----------------------
 const listStudents = () => {
   return dispatch => {
     return axios
@@ -35,6 +27,13 @@ const listStudents = () => {
         dispatch({
           type: LIST_STUDENTS,
           students
+        });
+      })
+      .catch(error => {
+        const err = error.response.data;
+        dispatch({
+          type: ERROR,
+          err
         });
       });
   };
@@ -52,20 +51,26 @@ const deleteStudent = id => {
 const createStudent = student => {
   if (!student.profilePic) {
     student.profilePic =
-      "https://pixabay.com/en/avatar-person-neutral-man-blank-159236/";
+      "https://cdnb.artstation.com/p/assets/images/images/000/287/547/large/89Ilustra1.jpg?1415281882";
   }
   return dispatch => {
-    console.log(student);
     return axios
       .post("/api/students", student)
       .then(res => res.data)
       .then(studentData => {
+        window.location.href = "/#/api/students";
         dispatch({
           type: CREATE_STUDENT,
           studentData
         });
       })
-      .catch(console.error);
+      .catch(error => {
+        const err = error.response.data;
+        dispatch({
+          type: ERROR,
+          err
+        });
+      });
   };
 };
 const updateStudent = (student, id) => {
@@ -74,9 +79,106 @@ const updateStudent = (student, id) => {
       .put(`/api/students/${id}`, student)
       .then(res => res.data)
       .then(studentData => {
+        window.location.href = "/#/api/students";
         dispatch({
           type: UPDATE_STUDENT,
           studentData
+        });
+      })
+      .catch(error => {
+        const err = error.response.data;
+        dispatch({
+          type: ERROR,
+          err
+        });
+      });
+  };
+};
+
+//-------campuses------------------
+const listCampuses = () => {
+  return dispatch => {
+    return axios
+      .get("/api/campuses")
+      .then(campuses => campuses.data)
+      .then(campuses => {
+        dispatch({
+          type: LIST_CAMPUSES,
+          campuses
+        });
+      })
+      .catch(error => {
+        const err = error.response.data;
+        dispatch({
+          type: ERROR,
+          err
+        });
+      });
+  };
+};
+const deleteCampus = id => {
+  return dispatch => {
+    return axios.delete(`/api/campuses/${id}`).then(() => {
+      dispatch({
+        type: DELETE_CAMPUS,
+        id
+      });
+    });
+  };
+};
+//------clear errors------
+
+const clearErrors = () => {
+  return dispatch => {
+    return dispatch({
+      type: CLEAR_ERROR
+    });
+  };
+};
+//-------campus thunk-------
+const createCampus = campus => {
+  console.log(campus);
+  if (!campus.picture) {
+    campus.picture =
+      " https://www.sunshinedaydream.biz/assets/images/buttons/pink-floyd-the-wall-hammers-button.jpg";
+  }
+  return dispatch => {
+    return axios
+      .post("/api/campuses", campus)
+      .then(res => res.data)
+      .then(campusData => {
+        window.location.href = "/#/api/campuses";
+        dispatch({
+          type: CREATE_CAMPUS,
+          campusData
+        });
+      })
+      .catch(error => {
+        const err = error.response.data;
+        dispatch({
+          type: ERROR,
+          err
+        });
+      });
+  };
+};
+const updateCampus = (campus, id) => {
+  return dispatch => {
+    return axios
+      .put(`/api/campuses/${id}`, campus)
+      .then(res => res.data)
+      .then(campusData => {
+        window.location.href = "/#/api/campuses";
+        dispatch({
+          type: UPDATE_CAMPUS,
+          campusData
+        });
+      })
+      .catch(error => {
+        const err = error.response.data;
+        dispatch({
+          type: ERROR,
+          err
         });
       });
   };
@@ -89,11 +191,20 @@ const campusReducer = (state = [], action) => {
       state = action.campuses;
       break;
     case CREATE_CAMPUS:
-      state = [...state, action.campus];
+      state = [...state, action.campusData];
       break;
     case DELETE_CAMPUS:
       state = state.filter(campus => campus.id !== action.id * 1);
       break;
+    case UPDATE_CAMPUS:
+      let index = state.findIndex(
+        campus => campus.id === action.campusData.id * 1
+      );
+      state = [
+        ...state.slice(0, index),
+        action.campusData,
+        ...state.slice(index + 1)
+      ];
   }
   return state;
 };
@@ -108,6 +219,13 @@ const studentReducer = (state = [], action) => {
     case DELETE_STUDENT:
       state = state.filter(student => student.id !== action.id * 1);
       break;
+    case DELETE_CAMPUS:
+      state = state.map(student => {
+        if (student.campusId === action.id * 1) student.campusId = null;
+        return student;
+      });
+
+      break;
     case UPDATE_STUDENT:
       let index = state.findIndex(
         student => student.id === action.studentData.id * 1
@@ -121,9 +239,21 @@ const studentReducer = (state = [], action) => {
   return state;
 };
 
+const errorReducer = (state = "", action) => {
+  switch (action.type) {
+    case ERROR:
+      state = action.err;
+      break;
+    case CLEAR_ERROR:
+      state = "";
+  }
+  return state;
+};
+
 const reducer = combineReducers({
   students: studentReducer,
-  campuses: campusReducer
+  campuses: campusReducer,
+  errors: errorReducer
 });
 //----------store---------
 
@@ -137,5 +267,9 @@ export {
   listStudents,
   deleteStudent,
   createStudent,
-  updateStudent
+  updateStudent,
+  deleteCampus,
+  createCampus,
+  updateCampus,
+  clearErrors
 };
