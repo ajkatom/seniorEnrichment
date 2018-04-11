@@ -33,7 +33,7 @@ class Campus extends Component {
       matchingStudents,
       updateStudent
     } = this.props;
-
+    const { student } = this.state;
     if (!campuses || !campus) return null;
     return (
       <div>
@@ -70,7 +70,7 @@ class Campus extends Component {
           <select
             className="form-control"
             name="campusId"
-            value={this.state.student.id}
+            value={student.id}
             onChange={this.onChange}
           >
             <option value="-1">None</option>
@@ -83,8 +83,8 @@ class Campus extends Component {
           <button
             className="btn btn-primary"
             onClick={() => {
-              console.log(typeof pathname);
-              updateStudent(this.state.student, this.state.student.id);
+              console.log(this.state);
+              updateStudent(student);
             }}
           >
             ADD STUDENT
@@ -142,8 +142,8 @@ const mapDispatchToProps = dispatch => {
     deleteCampus: id => {
       dispatch(deleteCampus(id));
     },
-    updateStudent: (student, id) => {
-      dispatch(updateStudent(student, id));
+    updateStudent: student => {
+      dispatch(updateStudent(student));
     }
   };
 };

@@ -97,11 +97,7 @@ class Student extends Component {
           </select>
         </div>
         <div className="cntr">
-          <button
-            onClick={() =>
-              updateStudent(this.state.student, this.state.student.id)
-            }
-          >
+          <button onClick={() => updateStudent(this.state.student)}>
             change
           </button>
         </div>
@@ -167,8 +163,8 @@ const mapDispatchToProps = dispatch => {
     deleteStudent: id => {
       dispatch(deleteStudent(id));
     },
-    updateStudent: (student, id) => {
-      dispatch(updateStudent(student, id));
+    updateStudent: student => {
+      dispatch(updateStudent(student));
     }
   };
 };

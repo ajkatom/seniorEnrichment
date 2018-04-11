@@ -15,8 +15,8 @@ class StudentForm extends Component {
       profilePic: "",
       email: "",
       gpa: 0,
-      campusId: -1
-      // errors: ""
+      campusId: -1,
+      errors: ""
     };
     this.onChange = this.onChange.bind(this);
     this.changeState = this.changeState.bind(this);
@@ -33,6 +33,11 @@ class StudentForm extends Component {
       campusId: student.campusId,
       errors: errors
     });
+    if (student.id) {
+      this.setState({
+        id: student.id
+      });
+    }
   }
   componentWillReceiveProps(nextProps) {
     const { students, errors } = nextProps;

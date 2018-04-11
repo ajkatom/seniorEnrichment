@@ -73,7 +73,8 @@ const createStudent = student => {
       });
   };
 };
-const updateStudent = (student, id) => {
+const updateStudent = student => {
+  const { id } = student;
   return dispatch => {
     return axios
       .put(`/api/students/${id}`, student)
