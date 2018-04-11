@@ -24,7 +24,7 @@ const Campus = conn.define("campus", {
     type: Sequelize.STRING,
     allowNull: {
       args: false,
-      msg: "you must enter name!"
+      msg: "you must enter address!"
     },
     validate: {
       notEmpty: {
@@ -37,7 +37,7 @@ const Campus = conn.define("campus", {
     type: Sequelize.TEXT,
     allowNull: {
       args: false,
-      msg: "you must enter name!"
+      msg: "you must enter a descripton"
     },
     validate: {
       notEmpty: {

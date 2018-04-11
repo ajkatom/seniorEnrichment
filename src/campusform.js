@@ -15,7 +15,8 @@ class CampusForm extends Component {
       picture: picture,
       address: address,
       description: description,
-      errors: ""
+      errors: "",
+      id: null
     };
     this.onChange = this.onChange.bind(this);
     this.changeState = this.changeState.bind(this);
@@ -28,7 +29,8 @@ class CampusForm extends Component {
       picture: campus.picture,
       address: campus.address,
       description: campus.description,
-      errors: errors
+      errors: errors,
+      id: campus.id
     });
   }
   componentWillReceiveProps(nextProps) {
