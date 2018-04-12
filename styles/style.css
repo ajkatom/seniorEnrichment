@@ -11,10 +11,11 @@ html {
     background-size: cover;
     height: 100%;
     width: 100%;
+    color: teal;
 }
 
-h1 {
-    color: grey;
+li {
+    padding-bottom: 20px;
 }
 
 #home {
@@ -31,8 +32,7 @@ h1 {
     right: 0;
 }
 
-
-/* .container.noStudents {
+noStudents {
     background-image: url("https://fairfieldtheatre.org/sites/default/files/styles/events/public/event_images/8yTKYK3CUZ3mn0jWPoIFAkTuhga.jpg");
     background-size: cover;
     height: 100%;
@@ -45,8 +45,6 @@ h1 {
     left: 0;
     right: 0;
 }
-
-*/
 
 #students {
     background-image: url("http://greenwichfreepress.com/wp-content/uploads/2017/04/Screen-Shot-2017-04-18-at-1.04.47-PM.png");
@@ -76,14 +74,25 @@ h1 {
 
 */
 
-.cntr {
+
+/* .cntr {
     margin: 0 auto;
     flex-wrap: wrap;
     flex: initial;
-}
+} */
 
 .card-deck {
     margin: 0 auto;
+    padding: 20px;
+}
+
+.card {
+    max-width: 300px;
+    max-height: 550px;
+    min-height: 550px;
+    display: flex;
+    flex-wrap: wrap;
+    overflow-wrap: break-word;
 }
 
 

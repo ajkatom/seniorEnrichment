@@ -45,43 +45,46 @@ class Student extends Component {
     return (
       <div>
         <div className="container">
-          <div className="card-deck">
-            {student ? (
-              <div className="card">
-                <img
-                  className="card-img-top"
-                  alt="Card image cap"
-                  src={student.profilePic}
-                  height="200px"
-                />
-                <div className="card-body">
-                  <h2>{student.name}</h2>
-                  <h4>GPA : {student.gpa}</h4>
-                  <br />
-                  <Link
-                    to={`/api/students/${student.id}/studentForm`}
-                    type="button"
-                    className="btn btn-primary"
-                  >
-                    EDIT
-                  </Link>
-                  <button
-                    className="btn btn-primary"
-                    onClick={() => {
-                      deleteStudent(this.state.student.id);
-                      history.push("/api/students");
-                    }}
-                  >
-                    delete
-                  </button>
+          <div className="d-flex justify-content-center">
+            <div className="card-deck">
+              {student ? (
+                <div className="card">
+                  <img
+                    className="card-img-top"
+                    alt="Card image cap"
+                    src={student.profilePic}
+                    height="200px"
+                  />
+                  <div className="card-body">
+                    <h2>{student.name}</h2>
+                    <h4>GPA : {student.gpa}</h4>
+                    <br />
+                    <Link
+                      to={`/api/students/${student.id}/studentForm`}
+                      type="button"
+                      className="btn btn-primary"
+                    >
+                      EDIT
+                    </Link>
+                    <button
+                      className="btn btn-primary"
+                      onClick={() => {
+                        deleteStudent(this.state.student.id);
+                        history.push("/api/students");
+                      }}
+                    >
+                      delete
+                    </button>
+                  </div>
                 </div>
-              </div>
-            ) : null}
+              ) : null}
+            </div>
           </div>
         </div>
         <div />
-        <div className="cntr">
+        <div className="d-flex justify-content-center">
           <h2>Select New Campus</h2>
+          <br />
           <select
             className="form-control"
             name="campusId"
@@ -96,45 +99,47 @@ class Student extends Component {
             ))}
           </select>
         </div>
-        <div className="cntr">
+        <div className="d-flex justify-content-center">
           <button onClick={() => updateStudent(this.state.student)}>
             change
           </button>
         </div>
-        <div className="card-deck">
-          {campus.name ? (
-            <div className="card">
-              <img className="card-img-top" src={campus.picture} />
-              <NavLink
-                className="d-inline-flex"
-                to={`/api/campuses/${campus.id}`}
-              >
-                <h3>{campus.name}</h3>
-              </NavLink>
-              <br />
-              {counter.length} students
-              <Link
-                className="card-body"
-                to={`/api/campuses/${campus.id}/campusForm`}
-                type="button"
-                className="btn btn-primary btn-lg btn-primary"
-              >
-                EDIT CAMPUS
-              </Link>
-            </div>
-          ) : (
-            <div className="card">
-              <h3>This Student is not registered with a campus</h3>
-              <Link
-                className="card-body"
-                to={`/api/campuses/${campus.id}/campusForm`}
-                type="button"
-                className="btn btn-primary btn-lg btn-primary"
-              >
-                CREATE CAMPUS
-              </Link>
-            </div>
-          )}
+        <div className="d-flex justify-content-center">
+          <div className="card-deck">
+            {campus.name ? (
+              <div className="card">
+                <img className="card-img-top" src={campus.picture} />
+                <NavLink
+                  className="d-inline-flex"
+                  to={`/api/campuses/${campus.id}`}
+                >
+                  <h3>{campus.name}</h3>
+                </NavLink>
+
+                <h4>there are {counter.length} students enrolled</h4>
+                <Link
+                  className="card-body"
+                  to={`/api/campuses/${campus.id}/campusForm`}
+                  type="button"
+                  className="btn btn-primary btn-lg btn-primary"
+                >
+                  EDIT CAMPUS
+                </Link>
+              </div>
+            ) : (
+              <div className="card">
+                <h3>This Student is not registered with a campus</h3>
+                <Link
+                  className="card-body"
+                  to={`/api/campuses/${campus.id}/campusForm`}
+                  type="button"
+                  className="btn btn-primary btn-lg btn-primary"
+                >
+                  CREATE CAMPUS
+                </Link>
+              </div>
+            )}
+          </div>
         </div>
       </div>
     );

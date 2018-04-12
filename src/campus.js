@@ -91,30 +91,32 @@ class Campus extends Component {
           </button>
         </div>
         <h2>Enrolled students</h2>
-        {matchingStudents.length
-          ? matchingStudents.map(student => {
-              return (
-                <div className="container" key={student.id}>
-                  <div className="card-deck">
-                    <div className="card">
-                      <img
-                        className="card-img-top"
-                        src={student.profilePic}
-                        height="100pix"
-                        width="100pix"
-                      />
-                      <NavLink
-                        className="card-body"
-                        to={`/api/students/${student.id}`}
-                      >
-                        <h3 key={student.id}>{student.name}</h3>
-                      </NavLink>
-                    </div>
+        {matchingStudents.length ? (
+          matchingStudents.map(student => {
+            return (
+              <div className="container" key={student.id}>
+                <div className="card-deck">
+                  <div className="card">
+                    <img
+                      className="card-img-top"
+                      src={student.profilePic}
+                      height="100pix"
+                      width="100pix"
+                    />
+                    <NavLink
+                      className="card-body"
+                      to={`/api/students/${student.id}`}
+                    >
+                      <h3 key={student.id}>{student.name}</h3>
+                    </NavLink>
                   </div>
                 </div>
-              );
-            })
-          : null}
+              </div>
+            );
+          })
+        ) : (
+          <h1>there are no students enrolled</h1>
+        )}
       </div>
     );
   }

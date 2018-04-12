@@ -28,7 +28,6 @@ const Students = ({ deleteStudent, campuses, students, student }) => {
               return (
                 <div key={student.id}>
                   <li>
-                    <div className="card-header">student card</div>
                     <div className="card" style={{ width: "18rem" }}>
                       <img
                         className="card-img-top"

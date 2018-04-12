@@ -58,7 +58,7 @@ const createStudent = student => {
       .post("/api/students", student)
       .then(res => res.data)
       .then(studentData => {
-        window.location.href = "/#/api/students";
+        window.location.href = `/#/api/students/${studentData.id}`;
         dispatch({
           type: CREATE_STUDENT,
           studentData
@@ -80,7 +80,7 @@ const updateStudent = student => {
       .put(`/api/students/${id}`, student)
       .then(res => res.data)
       .then(studentData => {
-        window.location.href = "/#/api/students";
+        window.location.href = `/#/api/students/${studentData.id}`;
         dispatch({
           type: UPDATE_STUDENT,
           studentData
@@ -138,7 +138,6 @@ const clearErrors = () => {
 };
 //-------campus thunk-------
 const createCampus = campus => {
-  console.log(campus);
   if (!campus.picture) {
     campus.picture =
       " https://www.sunshinedaydream.biz/assets/images/buttons/pink-floyd-the-wall-hammers-button.jpg";
@@ -148,7 +147,7 @@ const createCampus = campus => {
       .post("/api/campuses", campus)
       .then(res => res.data)
       .then(campusData => {
-        window.location.href = "/#/api/campuses";
+        window.location.href = `/#/api/campuses/${campusData.id}`;
         dispatch({
           type: CREATE_CAMPUS,
           campusData
@@ -169,7 +168,7 @@ const updateCampus = (campus, id) => {
       .put(`/api/campuses/${id}`, campus)
       .then(res => res.data)
       .then(campusData => {
-        window.location.href = "/#/api/campuses";
+        window.location.href = `/#/api/campuses/${id}`;
         dispatch({
           type: UPDATE_CAMPUS,
           campusData
