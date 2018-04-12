@@ -65,6 +65,11 @@ noStudents {
     max-width: 20%;
 }
 
+.btn.btn-primary {
+    color: black;
+    background-color: rgb(95, 91, 91);
+}
+
 
 /* .noStudents {
     background-image: url("https://fairfieldtheatre.org/sites/default/files/styles/events/public/event_images/8yTKYK3CUZ3mn0jWPoIFAkTuhga.jpg");
@@ -88,10 +93,12 @@ noStudents {
 
 .card {
     max-width: 300px;
+    min-width: 300px;
     max-height: 550px;
     min-height: 550px;
     display: flex;
-    flex-wrap: wrap;
+    margin: 10px;
+    word-break: break-all;
     overflow-wrap: break-word;
 }
 

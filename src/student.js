@@ -16,7 +16,10 @@ class Student extends Component {
   }
   onChange(ev) {
     const { student } = this.state;
+    const { campuses } = this.props;
+    let campus = campuses.find(campus => campus.id === ev.target.value * 1);
     this.setState(Object.assign(student, { campusId: ev.target.value * 1 }));
+    this.setState({ campus: campus });
   }
 
   componentWillReceiveProps(nextProps) {
@@ -32,7 +35,6 @@ class Student extends Component {
   render() {
     const {
       history,
-      match,
       student,
       campus,
       counter,
@@ -53,16 +55,15 @@ class Student extends Component {
                     className="card-img-top"
                     alt="Card image cap"
                     src={student.profilePic}
-                    height="200px"
                   />
                   <div className="card-body">
                     <h2>{student.name}</h2>
                     <h4>GPA : {student.gpa}</h4>
                     <br />
                     <Link
+                      className="btn btn-primary"
                       to={`/api/students/${student.id}/studentForm`}
                       type="button"
-                      className="btn btn-primary"
                     >
                       EDIT
                     </Link>
@@ -84,11 +85,11 @@ class Student extends Component {
         <div />
         <div className="d-flex justify-content-center">
           <h2>Select New Campus</h2>
-          <br />
+
           <select
             className="form-control"
             name="campusId"
-            value={campus.id}
+            value={this.state.campus.id}
             onChange={this.onChange}
           >
             <option value="-1">None</option>
@@ -99,11 +100,13 @@ class Student extends Component {
             ))}
           </select>
         </div>
-        <div className="d-flex justify-content-center">
-          <button onClick={() => updateStudent(this.state.student)}>
-            change
-          </button>
-        </div>
+
+        <button
+          className="d-flex justify-content-center"
+          onClick={() => updateStudent(this.state.student)}
+        >
+          change
+        </button>
         <div className="d-flex justify-content-center">
           <div className="card-deck">
             {campus.name ? (
@@ -126,19 +129,7 @@ class Student extends Component {
                   EDIT CAMPUS
                 </Link>
               </div>
-            ) : (
-              <div className="card">
-                <h3>This Student is not registered with a campus</h3>
-                <Link
-                  className="card-body"
-                  to={`/api/campuses/${campus.id}/campusForm`}
-                  type="button"
-                  className="btn btn-primary btn-lg btn-primary"
-                >
-                  CREATE CAMPUS
-                </Link>
-              </div>
-            )}
+            ) : null}
           </div>
         </div>
       </div>

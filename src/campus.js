@@ -36,36 +36,42 @@ class Campus extends Component {
     const { student } = this.state;
     if (!campuses || !campus) return null;
     return (
-      <div>
-        <div className="container">
-          {campus ? (
-            <div>
-              <img className="d-inline-flex" src={campus.picture} />
-              <div className="container">
-                <h2 className="d-inline-flex">{campus.name}</h2>
+      <div className="container">
+        <div className="d-flex justify-content-center">
+          <div className="card-deck">
+            {campus ? (
+              <div className="card">
+                <img
+                  className="card-img-top"
+                  alt="Card image cap"
+                  src={campus.picture}
+                />
+                <h2>{campus.name}</h2>
+                <p>{campus.description}</p>
+                <div className="card-body">
+                  <Link
+                    className="btn btn-primary"
+                    to={`/api/campuses/${campus.id}/campusForm`}
+                    type="button"
+                    className="btn btn-primary btn"
+                  >
+                    EDIT
+                  </Link>
+                  <button
+                    className="btn btn-primary"
+                    onClick={() => {
+                      deleteCampus(campus.id);
+                      history.push("/api/campuses");
+                    }}
+                  >
+                    delete
+                  </button>
+                </div>
               </div>
-              <div className="d-inline-flex">{campus.description}</div>
-            </div>
-          ) : null}
+            ) : null}
+          </div>
         </div>
-        <Link
-          className="btn btn-primary"
-          to={`/api/campuses/${campus.id}/campusForm`}
-          type="button"
-          className="btn btn-primary btn-lg btn-primary"
-        >
-          EDIT
-        </Link>
-        <button
-          className="btn btn-primary"
-          onClick={() => {
-            deleteCampus(campus.id);
-            history.push("/api/campuses");
-          }}
-        >
-          delete
-        </button>
-        <div>
+        <div className="d-flex justify-content-center">
           <h2>add existing students</h2>
           <select
             className="form-control"
@@ -83,19 +89,18 @@ class Campus extends Component {
           <button
             className="btn btn-primary"
             onClick={() => {
-              console.log(this.state);
               updateStudent(student);
             }}
           >
             ADD STUDENT
           </button>
         </div>
-        <h2>Enrolled students</h2>
-        {matchingStudents.length ? (
-          matchingStudents.map(student => {
-            return (
-              <div className="container" key={student.id}>
-                <div className="card-deck">
+        <h2 className="d-flex justify-content-center">Enrolled students</h2>
+        <div className="d-flex justify-content-center">
+          {matchingStudents.length ? (
+            matchingStudents.map(student => {
+              return (
+                <div key={student.id}>
                   <div className="card">
                     <img
                       className="card-img-top"
@@ -111,12 +116,12 @@ class Campus extends Component {
                     </NavLink>
                   </div>
                 </div>
-              </div>
-            );
-          })
-        ) : (
-          <h1>there are no students enrolled</h1>
-        )}
+              );
+            })
+          ) : (
+            <h1>there are no students enrolled</h1>
+          )}
+        </div>
       </div>
     );
   }

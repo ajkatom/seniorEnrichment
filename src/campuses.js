@@ -48,7 +48,11 @@ const Campuses = ({ campuses, students, deleteCampus }) => {
                         >
                           delete
                         </button>
-                        {counter.length} students
+                        {!counter.length === 1 ? (
+                          <h4>There is 1 student enrolled </h4>
+                        ) : (
+                          <h4> there are {counter.length} Students</h4>
+                        )}
                       </div>
                     </div>
                   </li>
