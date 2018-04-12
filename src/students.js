@@ -64,7 +64,9 @@ const Students = ({ deleteStudent, campuses, students, student }) => {
               );
             })
           ) : (
-            <h1 className="noStudents"> there are no students</h1>
+            <div className="noStudents">
+              <h1> there are no students</h1>
+            </div>
           )}
         </ul>
       </div>

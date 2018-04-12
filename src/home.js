@@ -6,7 +6,7 @@ const Home = () => {
   return (
     <div className="container" id="home">
       <h1>WELLCOME TO THE COLLEGE REGISTRY</h1>
-      <p>{chance.paragraph()}</p>
+      <p>{chance.paragraph({ sentences: 35 })}</p>
     </div>
   );
 };

@@ -10,12 +10,12 @@ const Nav = () => {
             Home
           </NavLink>
         </li>
-        <li className="nav-item">
+        <li className="nav-item campsus">
           <NavLink className="nav-link" data-toggle="pill" to={"/api/campuses"}>
             campuses
           </NavLink>
         </li>
-        <li className="nav-item">
+        <li className="nav-item students">
           <NavLink className="nav-link" data-toggle="pill" to={"/api/students"}>
             students
           </NavLink>

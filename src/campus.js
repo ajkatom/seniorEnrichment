@@ -73,6 +73,8 @@ class Campus extends Component {
         </div>
         <div className="d-flex justify-content-center">
           <h2>add existing students</h2>
+        </div>
+        <div className="d-flex justify-content-center">
           <select
             className="form-control"
             name="campusId"
@@ -87,7 +89,7 @@ class Campus extends Component {
             ))}
           </select>
           <button
-            className="btn btn-primary"
+            className="btn btn-primary btn-sm"
             onClick={() => {
               updateStudent(student);
             }}
@@ -102,12 +104,7 @@ class Campus extends Component {
               return (
                 <div key={student.id}>
                   <div className="card">
-                    <img
-                      className="card-img-top"
-                      src={student.profilePic}
-                      height="100pix"
-                      width="100pix"
-                    />
+                    <img className="card-img-top" src={student.profilePic} />
                     <NavLink
                       className="card-body"
                       to={`/api/students/${student.id}`}

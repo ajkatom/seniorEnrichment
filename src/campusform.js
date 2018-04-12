@@ -109,7 +109,7 @@ class CampusForm extends Component {
               defaultValue={name}
               onChange={this.onChange}
             />
-            <input
+            <textarea
               name="description"
               placeholder={description}
               defaultValue={description}

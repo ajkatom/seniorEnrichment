@@ -85,7 +85,8 @@ class Student extends Component {
         <div />
         <div className="d-flex justify-content-center">
           <h2>Select New Campus</h2>
-
+        </div>
+        <div className="d-flex justify-content-center">
           <select
             className="form-control"
             name="campusId"
@@ -99,14 +100,14 @@ class Student extends Component {
               </option>
             ))}
           </select>
+          <button
+            className="d-flex justify-content-center"
+            onClick={() => updateStudent(this.state.student)}
+          >
+            change
+          </button>
         </div>
 
-        <button
-          className="d-flex justify-content-center"
-          onClick={() => updateStudent(this.state.student)}
-        >
-          change
-        </button>
         <div className="d-flex justify-content-center">
           <div className="card-deck">
             {campus.name ? (
