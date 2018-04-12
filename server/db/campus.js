@@ -5,15 +5,15 @@ const { Sequlize } = conn;
 const Campus = conn.define("campus", {
   name: {
     type: Sequelize.STRING,
-    allowNull: {
-      args: false,
-      msg: "you must enter name!"
+    allowNull: false,
+    unique: {
+      args: true,
+      msg: "campus already exists"
     },
-    unique: true,
     validate: {
       notEmpty: {
         args: true,
-        msg: "you must enter name!"
+        msg: "name cannot be empty"
       }
     }
   },
@@ -24,12 +24,12 @@ const Campus = conn.define("campus", {
     type: Sequelize.STRING,
     allowNull: {
       args: false,
-      msg: "you must enter address!"
+      msg: "address cannot be empty"
     },
     validate: {
       notEmpty: {
         args: true,
-        msg: "you must enter addres!"
+        msg: "address cannot be empty"
       }
     }
   },
@@ -37,12 +37,12 @@ const Campus = conn.define("campus", {
     type: Sequelize.TEXT,
     allowNull: {
       args: false,
-      msg: "you must enter a descripton"
+      msg: "must describe the campus"
     },
     validate: {
       notEmpty: {
-        arg: true,
-        msg: "you must enter a description"
+        args: true,
+        msg: "must describe the campus"
       }
     }
   }

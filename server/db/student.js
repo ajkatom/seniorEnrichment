@@ -11,32 +11,44 @@ const Student = conn.define(
       type: Sequelize.STRING,
       allowNull: {
         args: false,
-        msg: "you must enter first name!"
+        msg: "you must enter a first name!"
       },
       validate: {
         notEmpty: {
           args: true,
-          msg: "you must enter first name!"
+          msg: "you must enter a first name!"
         }
       }
     },
     lastName: {
       type: Sequelize.STRING,
-      allowNull: false,
+      allowNull: {
+        args: false,
+        msg: "you must enter a last name!"
+      },
       validate: {
         notEmpty: {
           args: true,
-          msg: "you must enter last name!"
+          msg: "you must enter a last name!"
         }
       }
     },
     email: {
       type: Sequelize.STRING,
       isUnique: true,
-      allowNull: false,
+      allowNull: {
+        args: false,
+        msg: "you must enter an email!"
+      },
       validate: {
-        isEmail: true,
-        notEmpty: true
+        isEmail: {
+          args: true,
+          msg: "you must enter a valid email"
+        },
+        notEmpty: {
+          args: true,
+          msg: "you must enter an email!"
+        }
       }
     },
     gpa: {
