@@ -18,12 +18,13 @@ class Student extends Component {
     const { student } = this.state;
     const { campuses } = this.props;
     let campus = campuses.find(campus => campus.id === ev.target.value * 1);
-    console.log(campus);
-
+    if (campus) {
+      this.setState({ campus: campus });
+    } else {
+      this.setState({ campus: "" });
+    }
     this.setState(Object.assign(student, { campusId: ev.target.value * 1 }));
-    this.setState({ campus: campus });
   }
-
   componentWillReceiveProps(nextProps) {
     if (nextProps.student) {
       const student = omit(nextProps.student, "name");
@@ -92,15 +93,16 @@ class Student extends Component {
           <select
             className="form-control"
             name="campusId"
-            value={campus.id || -1}
+            value={this.state.campus.id}
             onChange={this.onChange}
           >
             <option value="-1">None</option>
+            if (campuses){" "}
             {campuses.map(campus => (
               <option key={campus.id} value={campus.id}>
                 {campus.name}
               </option>
-            ))}
+            ))}}
           </select>
           <button
             className="d-flex justify-content-center"
