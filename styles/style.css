@@ -59,6 +59,7 @@ li {
 .card-deck {
     margin: 0 auto;
     padding: 20px;
+    flex-wrap: wrap;
 }
 
 .card {

@@ -131,7 +131,6 @@ class StudentForm extends Component {
               {campuses.map(campus => (
                 <option key={campus.id} value={campus.id}>
                   {campus.name}
-                  {campus.id}
                 </option>
               ))}
             </select>
