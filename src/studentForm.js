@@ -43,11 +43,16 @@ class StudentForm extends Component {
     const { students, errors } = nextProps;
     if (students.length) {
       let id = nextProps.match.params.id;
+      console.log();
       let student = students.reduce((theStudent, student) => {
         if (student.id === id * 1) theStudent = student;
         return theStudent;
       }, {});
-      this.setState({ student, errors: errors });
+      student = omit(student, "name");
+      for (let key in student) {
+        this.setState({ [key]: student[key] });
+      }
+      this.setState({ errors: errors });
     }
   }
   componentWillMount() {
@@ -198,7 +203,7 @@ class StudentForm extends Component {
         {id ? (
           <button
             onClick={() => {
-              this.props.updateStudent(this.state, id);
+              this.props.updateStudent(this.state);
             }}
           >
             update

@@ -35,14 +35,17 @@ class CampusForm extends Component {
   }
   componentWillReceiveProps(nextProps) {
     const { campuses, errors } = nextProps;
-    console.log(campuses);
+    //console.log(campuses);
     if (campuses.length) {
       let id = nextProps.match.params.id;
       let campus = campuses.reduce((theCampus, campus) => {
         if (campus.id === id * 1) theCampus = campus;
         return theCampus;
       }, {});
-      this.setState({ campus, errors });
+      for (let key in campus) {
+        this.setState({ [key]: campus[key] });
+      }
+      this.setState({ errors: errors });
     }
   }
   componentDidMount() {

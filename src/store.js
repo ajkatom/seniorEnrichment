@@ -80,7 +80,7 @@ const updateStudent = (student, pathName) => {
       .put(`/api/students/${id}`, student)
       .then(res => res.data)
       .then(studentData => {
-        if (!history) {
+        if (!pathName) {
           window.location.href = `/#/api/students/${studentData.id}`;
         }
         dispatch({

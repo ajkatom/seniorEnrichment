@@ -95,6 +95,7 @@ class Campus extends Component {
           <button
             className="btn btn-primary btn-sm"
             onClick={() => {
+              console.log(!matchingStudents.includes(student));
               if (!matchingStudents.includes(student)) {
                 const pathName = history.location.pathname;
                 updateStudent(student, pathName);
