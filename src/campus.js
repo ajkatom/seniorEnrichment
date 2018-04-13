@@ -38,6 +38,7 @@ class Campus extends Component {
       updateStudent
     } = this.props;
     const { student } = this.state;
+    const pathName = history.location.pathname;
     if (!campuses || !campus) return null;
     return (
       <div className="container">
@@ -86,7 +87,6 @@ class Campus extends Component {
             onChange={this.onChange}
           >
             <option value="-1">None</option>
-
             {students.map(student => (
               <option key={student.id} value={student.id}>
                 {student.name}
