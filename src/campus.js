@@ -86,6 +86,7 @@ class Campus extends Component {
             onChange={this.onChange}
           >
             <option value="-1">None</option>
+
             {students.map(student => (
               <option key={student.id} value={student.id}>
                 {student.name}
@@ -94,17 +95,7 @@ class Campus extends Component {
           </select>
           <button
             className="btn btn-primary btn-sm"
-            onClick={() => {
-              console.log(!matchingStudents.includes(student));
-              if (!matchingStudents.includes(student)) {
-                const pathName = history.location.pathname;
-                updateStudent(student, pathName);
-              } else {
-                return (
-                  <h3>this students is already enrolled in this school</h3>
-                );
-              }
-            }}
+            onClick={() => updateStudent(student, pathName)}
           >
             ADD STUDENT
           </button>

@@ -18,6 +18,8 @@ class Student extends Component {
     const { student } = this.state;
     const { campuses } = this.props;
     let campus = campuses.find(campus => campus.id === ev.target.value * 1);
+    console.log(campus);
+
     this.setState(Object.assign(student, { campusId: ev.target.value * 1 }));
     this.setState({ campus: campus });
   }
@@ -90,7 +92,7 @@ class Student extends Component {
           <select
             className="form-control"
             name="campusId"
-            value={this.state.campus.id}
+            value={campus.id || -1}
             onChange={this.onChange}
           >
             <option value="-1">None</option>
