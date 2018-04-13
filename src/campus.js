@@ -22,6 +22,10 @@ class Campus extends Component {
     student.campusId = campusId;
     this.setState({ student });
   }
+  componentWillReceiveProps(nextProps) {
+    const { campus } = nextProps;
+    this.setState({ student: campus });
+  }
 
   render() {
     const {
@@ -91,7 +95,14 @@ class Campus extends Component {
           <button
             className="btn btn-primary btn-sm"
             onClick={() => {
-              updateStudent(student);
+              if (!matchingStudents.includes(student)) {
+                const pathName = history.location.pathname;
+                updateStudent(student, pathName);
+              } else {
+                return (
+                  <h3>this students is already enrolled in this school</h3>
+                );
+              }
             }}
           >
             ADD STUDENT
@@ -146,8 +157,8 @@ const mapDispatchToProps = dispatch => {
     deleteCampus: id => {
       dispatch(deleteCampus(id));
     },
-    updateStudent: student => {
-      dispatch(updateStudent(student));
+    updateStudent: (student, pathName) => {
+      dispatch(updateStudent(student, pathName));
     }
   };
 };

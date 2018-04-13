@@ -9,14 +9,14 @@ import Campuses from "./campuses";
 class CampusForm extends Component {
   constructor(props) {
     super(props);
-    const { name, address, picture, description } = this.props;
+    const { name, address, picture, description, id } = this.props;
     this.state = {
       name: name,
       picture: picture,
       address: address,
       description: description,
       errors: "",
-      id: null
+      id: id
     };
     this.onChange = this.onChange.bind(this);
     this.changeState = this.changeState.bind(this);
@@ -29,12 +29,13 @@ class CampusForm extends Component {
       picture: campus.picture,
       address: campus.address,
       description: campus.description,
-      errors: errors,
-      id: campus.id
+      id: campus.id,
+      errors: errors
     });
   }
   componentWillReceiveProps(nextProps) {
     const { campuses, errors } = nextProps;
+    console.log(campuses);
     if (campuses.length) {
       let id = nextProps.match.params.id;
       let campus = campuses.reduce((theCampus, campus) => {
@@ -44,7 +45,7 @@ class CampusForm extends Component {
       this.setState({ campus, errors });
     }
   }
-  componentWillMount() {
+  componentDidMount() {
     const { errors, campuses } = this.props;
     const id = this.props.match.params.id * 1;
     campuses.map(campus => {
@@ -63,6 +64,7 @@ class CampusForm extends Component {
   }
 
   render() {
+    // console.log(this.state);
     const { match, history, campuses, students, createCampus } = this.props;
     const { name, address, picture, description, errors } = this.state;
     const id = match.params.id * 1;
@@ -100,7 +102,7 @@ class CampusForm extends Component {
               onChange={this.onChange}
             />
           </div>
-        ) : students.length ? (
+        ) : campuses.length ? (
           <div>
             <h1>{name}</h1>
             <input

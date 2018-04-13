@@ -73,14 +73,16 @@ const createStudent = student => {
       });
   };
 };
-const updateStudent = student => {
+const updateStudent = (student, pathName) => {
   const { id } = student;
   return dispatch => {
     return axios
       .put(`/api/students/${id}`, student)
       .then(res => res.data)
       .then(studentData => {
-        window.location.href = `/#/api/students/${studentData.id}`;
+        if (!history) {
+          window.location.href = `/#/api/students/${studentData.id}`;
+        }
         dispatch({
           type: UPDATE_STUDENT,
           studentData
