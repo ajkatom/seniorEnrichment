@@ -1,5 +1,4 @@
 const db = require("./index.js");
-const fs = require("fs");
 const conn = require("./conn");
 const { Student, Campus } = db.models;
 const Sequelize = require("sequelize");

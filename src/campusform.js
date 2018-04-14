@@ -35,7 +35,6 @@ class CampusForm extends Component {
   }
   componentWillReceiveProps(nextProps) {
     const { campuses, errors } = nextProps;
-    //console.log(campuses);
     if (campuses.length) {
       let id = nextProps.match.params.id;
       let campus = campuses.reduce((theCampus, campus) => {
@@ -67,7 +66,6 @@ class CampusForm extends Component {
   }
 
   render() {
-    // console.log(this.state);
     const { match, history, campuses, students, createCampus } = this.props;
     const { name, address, picture, description, errors } = this.state;
     const id = match.params.id * 1;
@@ -137,7 +135,7 @@ class CampusForm extends Component {
         {id ? (
           <button
             onClick={() => {
-              this.props.updateCampus(this.state, id);
+              this.props.updateCampus(this.state);
             }}
           >
             update

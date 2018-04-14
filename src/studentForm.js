@@ -43,7 +43,6 @@ class StudentForm extends Component {
     const { students, errors } = nextProps;
     if (students.length) {
       let id = nextProps.match.params.id;
-      console.log();
       let student = students.reduce((theStudent, student) => {
         if (student.id === id * 1) theStudent = student;
         return theStudent;

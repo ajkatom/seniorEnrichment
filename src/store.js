@@ -1,7 +1,6 @@
 import { createStore, combineReducers, applyMiddleware } from "redux";
 import thunk from "redux-thunk";
 import axios from "axios";
-import campuses from "./campuses";
 
 const LIST_CAMPUSES = "LIST_CAMPUSES";
 const DELETE_CAMPUS = "DELETE_CAMPUS";
@@ -129,15 +128,7 @@ const deleteCampus = id => {
     });
   };
 };
-//------clear errors------
 
-const clearErrors = () => {
-  return dispatch => {
-    return dispatch({
-      type: CLEAR_ERROR
-    });
-  };
-};
 //-------campus thunk-------
 const createCampus = campus => {
   if (!campus.picture) {
@@ -183,6 +174,15 @@ const updateCampus = (campus, id) => {
           err
         });
       });
+  };
+};
+//------clear errors------
+
+const clearErrors = () => {
+  return dispatch => {
+    return dispatch({
+      type: CLEAR_ERROR
+    });
   };
 };
 
